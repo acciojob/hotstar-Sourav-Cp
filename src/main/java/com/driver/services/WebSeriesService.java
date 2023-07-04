@@ -39,6 +39,17 @@ public class WebSeriesService {
         WebSeries webSeries = new WebSeries(webSeriesEntryDto.getSeriesName(),webSeriesEntryDto.getAgeLimit(),webSeriesEntryDto.getRating(),webSeriesEntryDto.getSubscriptionType());
 
         ProductionHouse productionHouse = productionHouseRepository.findById(webSeriesEntryDto.getProductionHouseId()).get();
+
+        double rat = productionHouse.getRatings();
+        int size = productionHouse.getWebSeriesList().size();
+
+        rat = rat + webSeries.getRating();
+        size = size+1;
+
+        rat = rat/size;
+
+        productionHouse.setRatings(rat);
+
         webSeries.setProductionHouse(productionHouse);
         productionHouse.getWebSeriesList().add(webSeries);
 
